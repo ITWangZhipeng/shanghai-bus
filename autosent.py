@@ -1,6 +1,9 @@
 #coding:utf-8
 import itchat
+import os
 import bus as B
+import time
+import datetime
 def yindu():
     content = []
     router_name = ["143路","莘南专线","闵行41路","庄莘线","闵行30路"]
@@ -42,4 +45,18 @@ def tuling_reply(msg):
 
 if __name__ == "__main__":
     itchat.auto_login(hotReload=True)
-    itchat.run()
+    #itchat.run()
+   
+    while True:
+        d_time = datetime.datetime.strptime(str(datetime.datetime.now().date())+'6:45', '%Y-%m-%d%H:%M')
+        d_time1 =  datetime.datetime.strptime(str(datetime.datetime.now().date())+'7:10', '%Y-%m-%d%H:%M')
+        
+        now_time = datetime.datetime.now()
+        if now_time > d_time and now_time < d_time1:
+            reply = yindu()
+            itchat.send(reply, toUserName='filehelper')
+            time.sleep(60)
+        else:
+            os.system('echo notrighttime')
+            print("not right time")
+            time.sleep(60)
